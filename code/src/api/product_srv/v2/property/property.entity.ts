@@ -1,5 +1,17 @@
 import { Expose, Type } from 'class-transformer';
-import { IsArray, IsDateString, IsEnum, IsInt, IsOptional, IsString, IsUUID, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  IsString,
+  IsUUID,
+  ValidateIf,
+  ValidateNested,
+} from 'class-validator';
+
+import { UnitEntity } from '../unit/unit.entity';
 
 import { PropertyKind } from './property-kind.enum';
 import { PropertyOptionExtraKind } from './property-option-extra-kind.enum';
@@ -77,6 +89,12 @@ export class PropertyEntity {
   @IsOptional()
   @IsString()
   unitCode: string | null;
+
+  @Expose()
+  @ValidateIf((_object, value) => value !== null)
+  @ValidateNested()
+  @Type(() => UnitEntity)
+  unit: UnitEntity | null;
 
   @Expose()
   @IsInt()
