@@ -59,7 +59,7 @@ cookie/session auth, CORS, guards и общий exception filter.
 Store API возвращает offers[].records[]: uuid, article, clarifications[]
 (position/value) и inventory (recordUuid, quantity, reserved, available, version).
 Артикул и остаток принадлежат учетной записи. У товара/связи варианта их нет.
-Каталог — product_srv_v2; нельзя обращаться к прежнему product API или
+Каталог — product_srv; нельзя обращаться к прежнему product API или
 возвращать старый offer_inventory контракт.
 
 Команды учета HTTP: POST /v2/store/products/records/:recordUuid/inventory/
