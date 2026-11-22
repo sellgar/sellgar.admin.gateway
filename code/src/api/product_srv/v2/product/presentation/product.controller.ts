@@ -41,6 +41,19 @@ export class ProductController {
     return this.productService.getVariants(uuid);
   }
 
+  @Get(':uuid/archive-impact')
+  archiveImpact(@Param('uuid', ParseUUIDPipe) uuid: string) {
+    return this.productService.archiveImpact(uuid);
+  }
+
+  @Get(':uuid/variants/:variantUuid/archive-impact')
+  variantArchiveImpact(
+    @Param('uuid', ParseUUIDPipe) uuid: string,
+    @Param('variantUuid', ParseUUIDPipe) variantUuid: string,
+  ) {
+    return this.productService.archiveImpact(uuid, variantUuid);
+  }
+
   @Get(':uuid/variants/:variantUuid')
   getVariant(@Param('uuid', ParseUUIDPipe) uuid: string, @Param('variantUuid', ParseUUIDPipe) variantUuid: string) {
     return this.productService.getVariant(uuid, variantUuid);

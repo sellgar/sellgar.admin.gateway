@@ -14,6 +14,7 @@ import { UpdateVariantDto } from '../presentation/dto/update-variant.dto';
 import { VariantInputDto } from '../presentation/dto/variant-input.dto';
 import { ProductEntity } from '../product.entity';
 import { ProductPageEntity } from '../product-page.entity';
+import { ArchiveImpactEntity } from '../archive-impact.entity';
 
 @Injectable()
 export class ProductService {
@@ -69,6 +70,10 @@ export class ProductService {
 
   archive(uuid: string, version: number) {
     return this.productService.request(ProductServiceCommand.product.archive, { uuid, version }, ProductEntity);
+  }
+
+  archiveImpact(uuid: string, variantUuid?: string) {
+    return this.productService.request('catalog.v2.product.archiveImpact', { uuid, variantUuid }, ArchiveImpactEntity);
   }
 
   restore(uuid: string, version: number) {

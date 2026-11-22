@@ -29,7 +29,7 @@ describe(RealtimeController.name, () => {
     expect(channel.nack).not.toHaveBeenCalled();
   });
 
-  it.each(['store.product.created', 'store.product.updated'] as const)(
+  it.each(['store.product.created', 'store.product.updated', 'store.product.archived'] as const)(
     'publishes the Store-owned read model for %s without querying Product service',
     async (eventType) => {
       const publisher = { publish: jest.fn().mockResolvedValue(undefined) };
@@ -178,7 +178,7 @@ const createRmqContext = () => {
 };
 
 const createEnvelope = (
-  eventType: 'product.updated' | 'store.product.created' | 'store.product.updated',
+  eventType: 'product.updated' | 'store.product.created' | 'store.product.updated' | 'store.product.archived',
   aggregateType: 'product' | 'store_product',
   payload: Record<string, unknown>,
   schemaVersion = 1,

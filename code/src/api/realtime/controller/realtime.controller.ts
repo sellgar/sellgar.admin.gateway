@@ -16,6 +16,7 @@ import {
   PRODUCT_UPDATED_PATTERN,
   STORE_PRODUCT_CREATED_PATTERN,
   STORE_PRODUCT_UPDATED_PATTERN,
+  STORE_PRODUCT_ARCHIVED_PATTERN,
 } from '../realtime.constants';
 import { RealtimePublisherService } from '../service/realtime-publisher.service';
 
@@ -47,7 +48,7 @@ export class RealtimeController {
     });
   }
 
-  @EventPattern([STORE_PRODUCT_CREATED_PATTERN, STORE_PRODUCT_UPDATED_PATTERN])
+  @EventPattern([STORE_PRODUCT_CREATED_PATTERN, STORE_PRODUCT_UPDATED_PATTERN, STORE_PRODUCT_ARCHIVED_PATTERN])
   async storeProductChanged(@Payload() payload: unknown, @Ctx() context: RmqContext): Promise<void> {
     await this.consume(context, async () => {
       const event = plainToInstance(StoreProductChangedEventDto, payload);

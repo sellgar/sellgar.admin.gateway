@@ -4,8 +4,8 @@ export class StoreProductChangedEventDto {
   @IsUUID()
   eventUuid: string;
 
-  @IsIn(['store.product.created', 'store.product.updated'])
-  eventType: 'store.product.created' | 'store.product.updated';
+  @IsIn(['store.product.created', 'store.product.updated', 'store.product.archived'])
+  eventType: 'store.product.created' | 'store.product.updated' | 'store.product.archived';
 
   @IsInt()
   @IsIn([2, 3])
