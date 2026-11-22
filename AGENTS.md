@@ -84,6 +84,9 @@ productStatus, productShowing, variantStatus, variantShowing, quantityMin/Max,
 reservedMin/Max, availableMin/Max. HTTP DTO строго преобразует true/false и целые
 числа; проверяет статусы, границы и min <= max. Тот же query передается в Store.
 Текстовый search — только FTS по согласованным полям, без ILIKE/LIKE.
+Обычные ответы исключают архив на стороне Store. Неархивный Store Product может
+содержать offers=[] после SQL-отбора; read Entity принимает пустую коллекцию.
+Ограничение минимум одного предложения относится к команде создания, а не к чтению.
 
 События store.category.created/updated из outbox нормализуются RealtimeController
 в CategoryEntity и delivery channel categories с исходным eventUuid.
