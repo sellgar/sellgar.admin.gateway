@@ -13,21 +13,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-class CartPriceEntity {
-  @Expose()
-  @IsUUID()
-  uuid: string;
-
-  @Expose()
-  @IsString()
-  @Matches(/^\d+\.\d{2}$/)
-  value: string;
-
-  @Expose()
-  @IsString()
-  @Matches(/^[A-Z]{3}$/)
-  currencyCode: string;
-}
+import { CartPriceEntity } from './cart-price.entity';
 
 export class CartItemEntity {
   @Expose()

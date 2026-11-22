@@ -1,22 +1,9 @@
 import { Expose, Type } from 'class-transformer';
-import { IsArray, IsDateString, IsEnum, IsInt, IsOptional, IsString, IsUUID, ValidateNested } from 'class-validator';
+import { IsArray, IsDateString, IsEnum, IsOptional, IsString, IsUUID, ValidateNested } from 'class-validator';
 
 import { ProductFieldEntity } from '../product/product-field.entity';
 import { ProductStatus } from '../product/product-status.enum';
-
-export class VariantImageEntity {
-  @Expose()
-  @IsUUID()
-  imageUuid: string;
-
-  @Expose()
-  @IsString()
-  fileName: string;
-
-  @Expose()
-  @IsInt()
-  sortOrder: number;
-}
+import { VariantImageEntity } from './variant-image.entity';
 
 export class VariantEntity {
   @Expose()

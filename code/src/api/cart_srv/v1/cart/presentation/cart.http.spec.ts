@@ -5,12 +5,12 @@ import { Reflector } from '@nestjs/core';
 import { Test } from '@nestjs/testing';
 import { of, throwError } from 'rxjs';
 import request from 'supertest';
-
 import { SessionService } from '@/api/identity_srv/api/session/service/session.service';
 import { AuthSessionContextService } from '@/api/identity_srv/helpers/session-auth/context/auth-session-context.service';
 import { AuthCookieService } from '@/api/identity_srv/helpers/session-auth/cookie/auth-cookie.service';
 import { SessionAuthGuard } from '@/api/identity_srv/helpers/session-auth/guards/session-auth.guard';
 import { AllExceptionsFilter } from '@/common/exceptions/all-exception.filter';
+
 import { ApiCartV1Module } from '../../api.module';
 import { CART_COMMAND_SERVICE } from '../../shared/cart-service.constants';
 
@@ -63,8 +63,8 @@ describe('Admin Cart HTTP branch', () => {
     itemsTotal: '125.50',
   };
   const page = {
-    data: [{ ...metadata, shop: { uuid: shopUuid, name: 'Центр' }, itemsCount: 1 }],
-    meta: { totalRows: 1, limit: 50, offset: 0 },
+    items: [{ ...metadata, shop: { uuid: shopUuid, name: 'Центр' }, itemsCount: 1 }],
+    meta: { limit: 50, nextToken: null },
   };
 
   beforeAll(async () => {
@@ -117,18 +117,18 @@ describe('Admin Cart HTTP branch', () => {
   });
 
   it('passes typed pagination and owner/shop/status filters and exposes only the list entity', async () => {
-    send.mockReturnValue(of({ ...page, secret: 'drop', data: [{ ...page.data[0], internal: 'drop' }] }));
+    send.mockReturnValue(of({ ...page, secret: 'drop', items: [{ ...page.items[0], internal: 'drop' }] }));
     const result = await request(app.getHttpServer())
-      .get(`/v1/carts?shopUuid=${shopUuid}&ownerUuid=${ownerUuid}&status=closed&limit=20&offset=40`)
+      .get(`/v1/carts?shopUuid=${shopUuid}&ownerUuid=${ownerUuid}&status=closed&limit=20&nextToken=bookmark`)
       .set('Cookie', 'admin.sid=test')
       .expect(200);
     expect(send).toHaveBeenCalledWith(
       { cmd: 'cart.admin.getAll' },
-      { shopUuid, ownerUuid, status: 'closed', limit: 20, offset: 40 },
+      { shopUuid, ownerUuid, status: 'closed', limit: 20, nextToken: 'bookmark' },
     );
     expect(result.body.secret).toBeUndefined();
-    expect(result.body.data[0].internal).toBeUndefined();
-    expect(result.body.data[0].ownerUuid).toBe(ownerUuid);
+    expect(result.body.items[0].internal).toBeUndefined();
+    expect(result.body.items[0].ownerUuid).toBe(ownerUuid);
   });
 
   it('reads the full card with exact money and nullable projection fields', async () => {

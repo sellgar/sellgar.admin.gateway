@@ -1,16 +1,16 @@
+import { CursorQueryDto } from '@sellgar/pagination';
 import { Injectable } from '@nestjs/common';
 
 import { CreateCurrencyDto } from './dto/create-currency.dto';
 import { UpdateCurrencyDto } from './dto/update-currency.dto';
-
 import { CurrencyGateway } from '../gateway/currency.gateway';
 
 @Injectable()
 export class CurrencyService {
   constructor(private readonly currencyGateway: CurrencyGateway) {}
 
-  findAll() {
-    return this.currencyGateway.findAll();
+  findAll(query: Partial<CursorQueryDto> = {}) {
+    return this.currencyGateway.findAll(query);
   }
 
   findByCode(code: string) {

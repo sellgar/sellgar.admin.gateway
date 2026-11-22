@@ -1,55 +1,9 @@
 import { Expose, Type } from 'class-transformer';
-import {
-  IsArray,
-  IsDateString,
-  IsDefined,
-  IsString,
-  IsUUID,
-  Matches,
-  ValidateIf,
-  ValidateNested,
-} from 'class-validator';
+import { IsArray, IsDefined, IsString, Matches, ValidateIf, ValidateNested } from 'class-validator';
 
 import { CartItemEntity } from './cart-item.entity';
-
-export class CartMetadataEntity {
-  @Expose()
-  @IsUUID()
-  uuid: string;
-
-  @Expose()
-  @IsUUID()
-  ownerUuid: string;
-
-  @Expose()
-  @IsString()
-  @Matches(/^(0|[1-9]\d*)$/)
-  version: string;
-
-  @Expose()
-  @IsDateString()
-  createdAt: string;
-
-  @Expose()
-  @IsDateString()
-  updatedAt: string;
-
-  @Expose()
-  @ValidateIf((_o, v) => v !== null)
-  @IsDateString()
-  closedAt: string | null;
-}
-
-export class CartShopEntity {
-  @Expose()
-  @IsUUID()
-  uuid: string;
-
-  @Expose()
-  @ValidateIf((_o, v) => v !== null)
-  @IsString()
-  name: string | null;
-}
+import { CartMetadataEntity } from './cart-metadata.entity';
+import { CartShopEntity } from './cart-shop.entity';
 
 export class CartEntity extends CartMetadataEntity {
   @Expose()

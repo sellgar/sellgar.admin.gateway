@@ -6,66 +6,13 @@ import {
   IsInt,
   IsOptional,
   IsString,
-  IsUUID,
   ValidateIf,
   ValidateNested,
 } from 'class-validator';
 
 import { UnitEntity } from '../unit/unit.entity';
-
 import { PropertyKind } from './property-kind.enum';
-import { PropertyOptionExtraKind } from './property-option-extra-kind.enum';
-import { PropertyOptionTextDisplay } from './property-option-text-display.enum';
-
-export class PropertyOptionExtraEntity {
-  @Expose()
-  @IsEnum(PropertyOptionExtraKind)
-  type: PropertyOptionExtraKind;
-
-  @Expose()
-  @IsInt()
-  sortOrder: number;
-
-  @Expose()
-  @IsOptional()
-  @IsEnum(PropertyOptionTextDisplay)
-  textDisplay: PropertyOptionTextDisplay | null;
-
-  @Expose()
-  @IsOptional()
-  @IsString()
-  valueText: string | null;
-
-  @Expose()
-  @IsOptional()
-  @IsString()
-  valueColor: string | null;
-
-  @Expose()
-  @IsOptional()
-  @IsUUID()
-  imageUuid: string | null;
-}
-
-export class PropertyOptionEntity {
-  @Expose()
-  @IsString()
-  code: string;
-
-  @Expose()
-  @IsString()
-  name: string;
-
-  @Expose()
-  @IsInt()
-  sortOrder: number;
-
-  @Expose()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => PropertyOptionExtraEntity)
-  extras: PropertyOptionExtraEntity[];
-}
+import { PropertyOptionEntity } from './property-option.entity';
 
 export class PropertyEntity {
   @Expose()
@@ -113,24 +60,4 @@ export class PropertyEntity {
   @Expose()
   @IsDateString()
   updatedAt: string;
-}
-
-export class PropertyPageEntity {
-  @Expose()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => PropertyEntity)
-  items: PropertyEntity[];
-
-  @Expose()
-  @IsInt()
-  total: number;
-
-  @Expose()
-  @IsInt()
-  limit: number;
-
-  @Expose()
-  @IsInt()
-  offset: number;
 }

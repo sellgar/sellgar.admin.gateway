@@ -11,7 +11,6 @@ import { AdjustRecordInventoryCommand } from '../service/command/adjust-record-i
 import { InventoryMovementCommand } from '../service/command/inventory-movement.command';
 import { CreateStoreProductCommand } from '../service/command/create-store-product.command';
 import { UpdateStoreProductCommand } from '../service/command/update-store-product.command';
-
 import { RecordInventoryEntity, StoreProductEntity, StoreProductResultEntity } from '../entity';
 
 @Injectable()
@@ -29,7 +28,7 @@ export class StoreProductGateway {
     return resultInstance;
   }
 
-  async getByUuid(uuid: string, query: GetAllStoreProductsCommand = {}) {
+  async getByUuid(uuid: string, query: Partial<GetAllStoreProductsCommand> = {}) {
     const message = this.storeProxy.send({ cmd: 'store.product.getByUuid' }, { uuid, query });
 
     const result = await firstValueFrom(message);

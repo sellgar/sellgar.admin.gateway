@@ -59,23 +59,3 @@ export class ProductEntity {
   @IsDateString()
   updatedAt: string;
 }
-
-export class ProductPageEntity {
-  @Expose()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => ProductEntity)
-  items: ProductEntity[];
-
-  @Expose()
-  @IsInt()
-  total: number;
-
-  @Expose()
-  @IsInt()
-  limit: number;
-
-  @Expose()
-  @IsInt()
-  offset: number;
-}

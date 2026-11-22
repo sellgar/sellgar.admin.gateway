@@ -1,13 +1,12 @@
 import { randomUUID } from 'crypto';
-
 import { Inject, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
 import { AxiosResponse } from 'axios';
-
 import { firstValueFrom, map, catchError } from 'rxjs';
 
+import { GetAllFilesDto } from './dto/get-all-files.dto';
 import { GetFileQueryDto } from './dto/get-file-query.dto';
 import { FileUploadDto } from './dto/file-upload.dto';
 
@@ -34,8 +33,8 @@ export class FileGateway {
     @Inject('MEDIA_SERVICE') private readonly mediaService: ClientProxy,
   ) {}
 
-  getAll(folderUuid?: string) {
-    return firstValueFrom(this.fileService.send({ cmd: 'file.getAll' }, { folderUuid }));
+  getAll(query: GetAllFilesDto) {
+    return firstValueFrom(this.fileService.send({ cmd: 'file.getAll' }, query));
   }
 
   async upload(files: FileUploadDto[], folderUuid?: string) {

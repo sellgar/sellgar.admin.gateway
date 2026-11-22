@@ -14,7 +14,7 @@ describe('ShopService', () => {
 
   it('передаёт серверные фильтры в getAll', async () => {
     const { client, service } = createSubject();
-    const query = { term: 'магазин', limit: 25, offset: 50 };
+    const query = { term: 'магазин', limit: 25, nextToken: 'bookmark' };
 
     await service.getAll(query);
 

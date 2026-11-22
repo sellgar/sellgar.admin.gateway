@@ -1,11 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Res, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-
 import { Response } from 'express';
 
+import { GetAllFilesDto } from './dto/get-all-files.dto';
 import { GetFileQueryDto } from './dto/get-file-query.dto';
 import { FileUploadDto } from './dto/file-upload.dto';
-
 import { FileService } from './file.service';
 
 @Controller('v1/files')
@@ -13,8 +12,8 @@ export class FileController {
   constructor(private readonly fileService: FileService) {}
 
   @Get()
-  getAll(@Query('folderUuid') folderUuid?: string) {
-    return this.fileService.getAll(folderUuid);
+  getAll(@Query() query: GetAllFilesDto) {
+    return this.fileService.getAll(query);
   }
 
   @Post()

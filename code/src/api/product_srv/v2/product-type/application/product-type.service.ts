@@ -5,7 +5,8 @@ import { ProductServiceCommand } from '../../shared/product-service.constants';
 import { PaginationQueryDto } from '../../shared/presentation/dto/pagination-query.dto';
 import { CreateProductTypeDto } from '../presentation/dto/create-product-type.dto';
 import { UpdateProductTypeDto } from '../presentation/dto/update-product-type.dto';
-import { ProductTypeEntity, ProductTypePageEntity } from '../product-type.entity';
+import { ProductTypeEntity } from '../product-type.entity';
+import { ProductTypePageEntity } from '../product-type-page.entity';
 
 @Injectable()
 export class ProductTypeService {

@@ -7,7 +7,8 @@ import { CreatePropertyDto } from '../presentation/dto/create-property.dto';
 import { CreatePropertyOptionDto } from '../presentation/dto/create-property-option.dto';
 import { UpdatePropertyDto } from '../presentation/dto/update-property.dto';
 import { UpdatePropertyOptionDto } from '../presentation/dto/update-property-option.dto';
-import { PropertyEntity, PropertyPageEntity } from '../property.entity';
+import { PropertyEntity } from '../property.entity';
+import { PropertyPageEntity } from '../property-page.entity';
 
 @Injectable()
 export class PropertyService {

@@ -1,5 +1,5 @@
-import { Expose, Type } from 'class-transformer';
-import { IsArray, IsDateString, IsInt, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Expose } from 'class-transformer';
+import { IsDateString, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class UnitEntity {
   @Expose()
@@ -30,24 +30,4 @@ export class UnitEntity {
   @Expose()
   @IsDateString()
   updatedAt: string;
-}
-
-export class UnitPageEntity {
-  @Expose()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => UnitEntity)
-  items: UnitEntity[];
-
-  @Expose()
-  @IsInt()
-  total: number;
-
-  @Expose()
-  @IsInt()
-  limit: number;
-
-  @Expose()
-  @IsInt()
-  offset: number;
 }

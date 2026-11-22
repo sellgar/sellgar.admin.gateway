@@ -12,7 +12,8 @@ import { GetAllProductsDto } from '../presentation/dto/get-all-products.dto';
 import { UpdateProductDto } from '../presentation/dto/update-product.dto';
 import { UpdateVariantDto } from '../presentation/dto/update-variant.dto';
 import { VariantInputDto } from '../presentation/dto/variant-input.dto';
-import { ProductEntity, ProductPageEntity } from '../product.entity';
+import { ProductEntity } from '../product.entity';
+import { ProductPageEntity } from '../product-page.entity';
 
 @Injectable()
 export class ProductService {

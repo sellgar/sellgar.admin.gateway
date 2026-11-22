@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
+import { GetAllFoldersDto } from './dto/get-all-folders.dto';
 import { FoldersService } from './folders.service';
 import { CreateFolderDto } from './dto/create-folder.dto';
 import { UpdateFolderDto } from './dto/update-folder.dto';
@@ -14,8 +15,8 @@ export class FolderController {
   }
 
   @Get()
-  findAll(@Query('parentUuid') parentUuid: string) {
-    return this.folderService.findAll(parentUuid);
+  findAll(@Query() query: GetAllFoldersDto) {
+    return this.folderService.findAll(query);
   }
 
   @Post()

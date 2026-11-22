@@ -5,7 +5,8 @@ import { ProductServiceCommand } from '../../shared/product-service.constants';
 import { PaginationQueryDto } from '../../shared/presentation/dto/pagination-query.dto';
 import { CreateUnitDto } from '../presentation/dto/create-unit.dto';
 import { UpdateUnitDto } from '../presentation/dto/update-unit.dto';
-import { UnitEntity, UnitPageEntity } from '../unit.entity';
+import { UnitEntity } from '../unit.entity';
+import { UnitPageEntity } from '../unit-page.entity';
 
 @Injectable()
 export class UnitService {

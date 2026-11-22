@@ -125,8 +125,8 @@ RMQ client в `shared`, модуль `cart` с `presentation`, `application` и 
 | DELETE `/v1/carts/:uuid/items/:recordUuid` | `cart.admin.item.remove` |
 
 Список принимает необязательные `shopUuid`, `ownerUuid`, `status=active|closed`,
-`limit` (1–100, по умолчанию 50), `offset` (от 0, по умолчанию 0). Без status
-показываются активные и закрытые корзины. Ответ `{ data, meta: { totalRows, limit, offset } }`;
+`limit` (1–100, по умолчанию 50), `nextToken` (непрозрачный токен продолжения). Без status
+показываются активные и закрытые корзины. Ответ `{ items, meta: { limit, nextToken } }`;
 строка содержит UUID корзины/владельца, магазин с названием, версию, itemsCount
 (число позиций), createdAt/updatedAt/closedAt. Сортировка: updatedAt DESC, uuid ASC.
 Карточка содержит полный состав с названиями, ценами, остатком и причинами
@@ -199,3 +199,12 @@ PR запускает unit → build без публикации и деплоя
 
 Общие workflows закреплены тегом `delivery-v0.7.0` в `sellgar.infrastructure`.
 Порядок установки runner и передачи управления: [доставка приложений](https://github.com/sellgar/sellgar.infrastructure/blob/development/docs/application-delivery.md).
+
+## Пагинация списков
+
+Самостоятельные списки используют единый запрос `limit`/`nextToken` и ответ
+`{ items, meta: { limit, nextToken: string | null } }`. Размер 1–100, default 50.
+Конец обозначает только null. Gateway передаёт фильтры и метаданные владельца;
+не пересчитывает курсор или общее количество после композиции. Общие DTO
+приходят из @sellgar/pagination; ключ HMAC принадлежит сервису-владельцу,
+gateway его не получает. OFFSET отклоняется. Коллекции карточек остаются полными.

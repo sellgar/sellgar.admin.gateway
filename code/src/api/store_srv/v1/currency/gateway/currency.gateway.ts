@@ -1,3 +1,4 @@
+import { CursorQueryDto } from '@sellgar/pagination';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { plainToInstance } from 'class-transformer';
@@ -6,15 +7,15 @@ import { firstValueFrom } from 'rxjs';
 
 import { CreateCurrencyDto } from './dto/create-currency.dto';
 import { UpdateCurrencyDto } from './dto/update-currency.dto';
-
-import { CurrencyEntity, CurrencyResultEntity } from '../currency.entity';
+import { CurrencyEntity } from '../currency.entity';
+import { CurrencyResultEntity } from '../currency-result.entity';
 
 @Injectable()
 export class CurrencyGateway {
   constructor(@Inject('STORE_COMMAND_SERVICE') private readonly storeService: ClientProxy) {}
 
-  async findAll() {
-    const message = this.storeService.send({ cmd: 'currency.findAll' }, {});
+  async findAll(query: Partial<CursorQueryDto> = {}) {
+    const message = this.storeService.send({ cmd: 'currency.findAll' }, query);
     const result = await firstValueFrom(message);
 
     const resultInstance = plainToInstance(CurrencyResultEntity, result, {

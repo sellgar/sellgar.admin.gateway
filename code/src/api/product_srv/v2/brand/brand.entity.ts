@@ -1,20 +1,7 @@
-import { Expose, Transform, Type } from 'class-transformer';
-import { IsArray, IsDateString, IsInt, IsOptional, IsString, IsUUID, ValidateNested } from 'class-validator';
+import { Expose, Type } from 'class-transformer';
+import { IsArray, IsDateString, IsInt, IsOptional, IsString, ValidateNested } from 'class-validator';
 
-export class BrandImageEntity {
-  @Expose()
-  @IsUUID()
-  imageUuid: string;
-
-  @Expose()
-  @Transform(({ value, obj }) => value ?? obj.image?.fileName, { toClassOnly: true })
-  @IsString()
-  fileName: string;
-
-  @Expose()
-  @IsInt()
-  sortOrder: number;
-}
+import { BrandImageEntity } from './brand-image.entity';
 
 export class BrandEntity {
   @Expose()
@@ -47,24 +34,4 @@ export class BrandEntity {
   @Expose()
   @IsDateString()
   updatedAt: string;
-}
-
-export class BrandPageEntity {
-  @Expose()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => BrandEntity)
-  items: BrandEntity[];
-
-  @Expose()
-  @IsInt()
-  total: number;
-
-  @Expose()
-  @IsInt()
-  limit: number;
-
-  @Expose()
-  @IsInt()
-  offset: number;
 }

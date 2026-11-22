@@ -1,12 +1,11 @@
+import { Injectable } from '@nestjs/common';
+
 import { GetAllStoreProductsCommand } from './command/get-all-store-products.command';
 import { InventoryMovementCommand } from './command/inventory-movement.command';
 import { AdjustRecordInventoryCommand } from './command/adjust-record-inventory.command';
-import { Injectable } from '@nestjs/common';
-
 import { ArchiveStoreProductCommand } from './command/archive-store-product.command';
 import { CreateStoreProductCommand } from './command/create-store-product.command';
 import { UpdateStoreProductCommand } from './command/update-store-product.command';
-
 import { StoreProductGateway } from '../gateway/store-product.gateway';
 
 @Injectable()
@@ -17,7 +16,7 @@ export class StoreProductService {
     return this.storeProductGateway.getAll(query);
   }
 
-  getByUuid(uuid: string, query: GetAllStoreProductsCommand = {}) {
+  getByUuid(uuid: string, query: Partial<GetAllStoreProductsCommand> = {}) {
     return this.storeProductGateway.getByUuid(uuid, query);
   }
 

@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { CursorQueryDto } from '@sellgar/pagination';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
 import { CreateCurrencyDto } from './dto/create-currency.dto';
 import { UpdateCurrencyDto } from './dto/update-currency.dto';
-
 import { CurrencyService } from '../service/currency.service';
 
 @Controller('v2/currency')
@@ -10,8 +10,8 @@ export class CurrencyController {
   constructor(private readonly currencyService: CurrencyService) {}
 
   @Get('/')
-  findAll() {
-    return this.currencyService.findAll();
+  findAll(@Query() query: CursorQueryDto) {
+    return this.currencyService.findAll(query);
   }
 
   @Get(':code')

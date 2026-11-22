@@ -7,7 +7,8 @@ import { ProductServiceCommand } from '../../shared/product-service.constants';
 import { PaginationQueryDto } from '../../shared/presentation/dto/pagination-query.dto';
 import { CreateBrandDto } from '../presentation/dto/create-brand.dto';
 import { UpdateBrandDto } from '../presentation/dto/update-brand.dto';
-import { BrandEntity, BrandPageEntity } from '../brand.entity';
+import { BrandEntity } from '../brand.entity';
+import { BrandPageEntity } from '../brand-page.entity';
 
 @Injectable()
 export class BrandService {
@@ -40,10 +41,12 @@ export class BrandService {
     const uploaded: UploadedImage[] = [];
 
     try {
-      const images = dto.images === undefined
-        ? undefined
-        : await this.imageUpload.resolve(dto.images, files, uploaded);
-      return await this.productService.request(ProductServiceCommand.brand.update, { ...dto, code, images }, BrandEntity);
+      const images = dto.images === undefined ? undefined : await this.imageUpload.resolve(dto.images, files, uploaded);
+      return await this.productService.request(
+        ProductServiceCommand.brand.update,
+        { ...dto, code, images },
+        BrandEntity,
+      );
     } catch (error) {
       await this.imageUpload.rollback(uploaded);
       throw error;

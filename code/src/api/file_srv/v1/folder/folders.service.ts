@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
+import { GetAllFoldersDto } from './dto/get-all-folders.dto';
 import { FoldersGateway } from './folders.gateway';
 import { CreateFolderDto } from './dto/create-folder.dto';
 import { UpdateFolderDto } from './dto/update-folder.dto';
@@ -12,8 +13,8 @@ export class FoldersService {
     return this.folderGateway.findByUuid(uuid);
   }
 
-  findAll(parentUuid: string) {
-    return this.folderGateway.findAll(parentUuid);
+  findAll(query: GetAllFoldersDto) {
+    return this.folderGateway.findAll(query);
   }
 
   create(dto: CreateFolderDto) {
