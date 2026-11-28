@@ -26,6 +26,11 @@ cookie/session auth, CORS, guards и общий exception filter.
 
 ## Правила изменений
 
+- `GET /v2/properties` передаёт в Product `search`, `sortBy`, `sortDirection`,
+  `limit`, `nextToken`. search ограничен 256 символами; сортировка принимает
+  только name/code/createdAt/updatedAt/relevance и asc/desc. Поиск и состав
+  результата определяет Product service, gateway не фильтрует коллекцию.
+
 - Сохраняйте admin-специфичную HTTP/session обвязку в gateway-слое, но не
   переносите сюда владение сущностями identity/product.
 - При изменении auth/session/token сверяйте одноименные сервисы в `services/identity_srv`.

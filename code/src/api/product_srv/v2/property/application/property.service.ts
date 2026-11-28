@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { ProductServiceClient } from '../../shared/product-service.client';
 import { ProductServiceCommand } from '../../shared/product-service.constants';
-import { PaginationQueryDto } from '../../shared/presentation/dto/pagination-query.dto';
+import { GetAllPropertiesDto } from '../presentation/dto/get-all-properties.dto';
 import { CreatePropertyDto } from '../presentation/dto/create-property.dto';
 import { CreatePropertyOptionDto } from '../presentation/dto/create-property-option.dto';
 import { UpdatePropertyDto } from '../presentation/dto/update-property.dto';
@@ -14,7 +14,7 @@ import { PropertyPageEntity } from '../property-page.entity';
 export class PropertyService {
   constructor(private readonly productService: ProductServiceClient) {}
 
-  getAll(query: PaginationQueryDto) {
+  getAll(query: GetAllPropertiesDto) {
     return this.productService.request(ProductServiceCommand.property.getAll, query, PropertyPageEntity);
   }
 

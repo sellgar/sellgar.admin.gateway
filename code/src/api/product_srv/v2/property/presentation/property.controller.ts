@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
 
-import { PaginationQueryDto } from '../../shared/presentation/dto/pagination-query.dto';
 import { PropertyService } from '../application/property.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
+import { GetAllPropertiesDto } from './dto/get-all-properties.dto';
 import { CreatePropertyOptionDto } from './dto/create-property-option.dto';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { UpdatePropertyOptionDto } from './dto/update-property-option.dto';
@@ -12,7 +12,7 @@ export class PropertyController {
   constructor(private readonly propertyService: PropertyService) {}
 
   @Get()
-  getAll(@Query() query: PaginationQueryDto) {
+  getAll(@Query() query: GetAllPropertiesDto) {
     return this.propertyService.getAll(query);
   }
 
